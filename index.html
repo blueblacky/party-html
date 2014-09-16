@@ -16,7 +16,11 @@
             },
             dataType: "JSON",
             success: function (jsonStr) {
-                $("#result").text(JSON.stringify(jsonStr));
+                  <!--$("#result").text(JSON.stringify(jsonStr));-->
+				if(jsonStr != ''){
+				$("#result").text(JSON.stringify(jsonStr));
+						window.location="home.html";
+				}
             }
         });
 
