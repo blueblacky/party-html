@@ -1,0 +1,106 @@
+<html>
+    <head>
+       <title>Party Booking</title>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.js"></script>	
+     <script type="text/javascript">
+     $(document).ready(function() {
+
+            $("#submit").click(function(){
+
+            $.ajax({
+            url: "http://192.168.0.100/party_booking_html/post_receiver.php",
+            type: "POST",
+            data: {
+                uname: $("#uname").val(),
+                pass: $("#pass").val()
+            },
+            dataType: "JSON",
+            success: function (jsonStr) {
+                $("#result").text(JSON.stringify(jsonStr));
+            }
+        });
+
+    }); 
+
+    });
+    </script>
+	<style type="text/css">
+	body
+	{
+		background:#fff;
+		color:#000;
+		paddin:0;
+		margin:0 auto;
+	}
+	#title
+	{
+		height:2.5em;
+		width:100%;
+		background:#424242;
+		color:#fff;
+		font-size:1.4em;
+		padding-top:0.2em;
+		float:left;		
+	}
+	#title_image
+	{
+		float:left;
+		vertical-align: middle;
+	}
+	#title_text
+	{
+		float:left;
+		padding-left:0.4em;
+		padding-top:0.5em;
+		vertical-align:middle;
+	}
+	.txt
+	{
+		width:100%;
+		height:auto;
+		font-size:10pt;
+		color:#000;
+		
+	}
+	.button
+	{
+		float:left;
+		width:auto;
+		font-size:10pt;
+		background:#0263ad;
+		padding:0.5em 0.5em;
+		border:0;
+		color:#fff;
+	}
+	ul
+	{
+		list-style-type:none;
+	}
+	li
+	{
+		padding:0.5em 0;
+	}
+	</style>
+    </head>
+    <body>
+	<div id="title">
+		<img src="ic_launcher.png" alt="" id="title_image"/> <span id="title_text">Party Booking</span>
+	</div>
+    <div id="result"></div>
+        <form name="contact" id="contact" method="post">
+		<img src="logo.png" al=""/>
+		<ul>
+		<li>Username</li>
+		<li><input type="text" name="uname" id="uname" class="txt"/></li>
+		<li>Password</li>
+		<li><input type="password" name="pass" id="pass" class="txt"/></li>
+		<li><input type="button" value="Login" name="submit" id="submit" class="button"/></li>
+         <!-- Amount : <input type="text" name="amount" id="amount"/><br/>
+         firstName : <input type="text" name="firstName" id="firstName"/><br/>
+         lastName : <input type="text" name="lastName" id="lastName"/><br/>
+         email : <input type="text" name="email" id="email"/><br/> -->
+        
+        </form>
+
+    </body>
+</html>
