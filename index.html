@@ -16,10 +16,12 @@
             },
             dataType: "JSON",
             success: function (jsonStr) {
-                  <!--$("#result").text(JSON.stringify(jsonStr));-->
-				if(jsonStr != ''){
-				$("#result").text(JSON.stringify(jsonStr));
-						window.location="home.html";
+                 <!--$("#result").text(JSON.stringify(jsonStr));-->
+				if(jsonStr.status == '1'){
+				alert(jsonStr.msg);
+				window.location="home.html";
+				}else{
+				alert(jsonStr.msg);
 				}
             }
         });
