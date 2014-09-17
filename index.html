@@ -8,8 +8,7 @@
             $("#submit").click(function(){
 
             $.ajax({
-            url: "http://192.168.0.100/party_booking_html/check_login.php",
-
+            url: "http://192.168.0.101/party_booking_html/check_login.php",
             type: "POST",
             data: {
                 uname: $("#uname").val(),
@@ -126,7 +125,6 @@
 			<center><img src="logo.png" alt="" style="text-align:center;"/></center>
 			<ul>
 			<li>Username</li>
-
 			<li><input type="text" name="uname" id="uname" class="txt" autocomplete="off"/></li>
 			<li>Password</li>
 			<li><input type="password" name="pass" id="pass" class="txt" autocomplete="off"/></li>
