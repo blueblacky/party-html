@@ -1,14 +1,14 @@
-l>
+<html>
     <head>
        <title>Party Booking</title>
-    <script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.js"></script>	
+    <script type="text/javascript" src="jquery-1.9.1.min.js"></script>	
      <script type="text/javascript">
      $(document).ready(function() {
 
             $("#submit").click(function(){
 
             $.ajax({
-            url: "http://192.168.0.100/party_booking_html/login.php",
+            url: "http://192.168.0.101/party_booking_html/check_login.php",
             type: "POST",
             data: {
                 uname: $("#uname").val(),
@@ -16,11 +16,22 @@ l>
             },
             dataType: "JSON",
             success: function (jsonStr) {
-                $("#result").text(JSON.stringify(jsonStr));
+                 <!--$("#result").text(JSON.stringify(jsonStr));-->
+				if(jsonStr.status == '1'){
+				alert(jsonStr.msg);
+				window.location="home.html";
+				}else{
+				alert(jsonStr.msg);
+				}
             }
         });
 
     }); 
+	
+	$("#clear").click(function() {
+		document.getElementById("uname").value="";
+		document.getElementById("pass").value="";
+	});
 
     });
     </script>
@@ -30,6 +41,7 @@ l>
 		background:#fff;
 		color:#000;
 		paddin:0;
+		margin:0;
 		margin:0 auto;
 	}
 	#title
@@ -38,9 +50,8 @@ l>
 		width:100%;
 		background:#424242;
 		color:#fff;
-		font-size:1.4em;
-		padding-top:0.2em;
-		float:left;		
+		font-size:1.4em;		
+			
 	}
 	#title_image
 	{
@@ -56,33 +67,92 @@ l>
 	}
 	.txt
 	{
-		width:100%;
+		width:98%;
+		margin-left:1%;
+		margin-right:1%;
 		height:auto;
-		font-size:10pt;
+		font-size:12pt;
 		color:#000;
-		
+		padding:0.5em;
+		border:0px;
+		border-bottom:1px  solid #efefef;
+	}
+	.txt:focus
+	{
+		outline:none;
+		border-bottom:1px  solid #0099cc;
 	}
 	.button
 	{
 		float:left;
 		width:auto;
-		font-size:10pt;
+		font-size:12pt;
 		background:#0263ad;
-		padding:0.5em 0.5em;
+		padding:0.8em 0.8em;
 		border:0;
 		color:#fff;
+		margin-right:1em;
 	}
 	ul
 	{
 		list-style-type:none;
+		margin-left:-30px;		
 	}
 	li
 	{
 		padding:0.5em 0;
 	}
+	#container
+	{
+		width:98%;
+		height:auto;
+		margin:0 auto;
+		margin-left:1%;
+		margin-right:1%;
+		margin-top:1em;
+		margin-bottom:1em;
+		/*background:red;*/
+	}
 	</style>
+	
+	<!--Menu Starts-->
+	<link rel="stylesheet" href="responsivemobilemenu.css" type="text/css"/>
+	<script type="text/javascript" src="responsivemobilemenu.js"></script>
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
+	<!--Menu Ends-->
+	
     </head>
     <body>
-	home
-	</body>
+	<div id="title">
+		<img src="ic_launcher.png" alt="" id="title_image"/> <span id="title_text">Party Booking</span>		
+	</div>
+	<div class="rmm" data-menu-style = "minimal">
+            <ul>
+                <li><a href='#home'>Home</a></li>
+                <li><a href='#about-me'>About me</a></li>
+                <li><a href='#gallery'>Gallery</a></li>
+                <li><a href='#blog'>Blog</a></li>
+                <li><a href='#links'>Links</a></li>
+                <li><a href='#sitemap'>Sitemap</a></li> 
+				<li><a href='#home'>Home</a></li>
+                <li><a href='#about-me'>About me</a></li>
+                <li><a href='#gallery'>Gallery</a></li>
+                <li><a href='#blog'>Blog</a></li>
+                <li><a href='#links'>Links</a></li>
+                <li><a href='#sitemap'>Sitemap</a></li>
+            </ul>
+        </div>
+	<div id="container">
+		<form name="contact" id="contact" method="post">
+			<center><img src="logo.png" alt="" style="text-align:center;"/></center>
+			<ul>
+				<li>Username</li>
+				<li><input type="text" name="uname" id="uname" class="txt"/></li>
+				<li>Password</li>
+				<li><input type="password" name="pass" id="pass" class="txt"/></li>
+				<li><input type="button" value="Login" name="submit" id="submit" class="button"/><input type="button" value="Clear" name="clear" id="clear" class="button"/></li>
+			</ul>				 			
+		</form>
+		</div>
+    </body>
 </html>
