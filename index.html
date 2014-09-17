@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html>
     <head>
        <title>Party Booking</title>
@@ -8,7 +9,7 @@
             $("#submit").click(function(){
 
             $.ajax({
-            url: "http://192.168.0.101/party_booking_html/check_login.php",
+            url: "http://192.168.0.101/party_booking_html/login.php",
             type: "POST",
             data: {
                 uname: $("#uname").val(),
@@ -16,12 +17,12 @@
             },
             dataType: "JSON",
             success: function (jsonStr) {
-                 <!--$("#result").text(JSON.stringify(jsonStr));-->
-				if(jsonStr.status == '1'){
-				alert(jsonStr.msg);
-				window.location="home.html";
+		    <!--$("#result").text(JSON.stringify(jsonStr));-->
+				if(jsonStr.success == '1'){
+					alert(jsonStr.name);
+					window.location="home.html";
 				}else{
-				alert(jsonStr.msg);
+					alert(jsonStr.message);
 				}
             }
         });
