@@ -6,14 +6,14 @@
         id        = "com.phonegap.helloworld"
         version   = "1.0.0">
 
-    <name>PARTY HTML</name>
+    <name>Hello World</name>
 
     <description>
-        Party booking html
+        Hello World sample application that responds to the deviceready event.
     </description>
 
     <author href="http://phonegap.com" email="support@phonegap.com">
-        RTLx Groups
+        PhoneGap Team
     </author>
 
     <!--
