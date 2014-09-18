@@ -2,28 +2,8 @@
 <html>
     <head>
        <title>Party Booking</title>
-    <script type="text/javascript" src="jquery-1.9.1.min.js"></script>	
-     <script type="text/javascript">
-     $(document).ready(function() {    	 	
-		
-		function getCookie() {
-		var name = "uname = ";
-		var ca = document.cookie.split(';');
-		for(var i=0; i<ca.length; i++) {
-			var c = ca[i];
-			while (c.charAt(0)==' ') c = c.substring(1);
-			if (c.indexOf(name) != -1) return c.substring(name.length,c.length);
-		}
-		return "";
-	}
-	
-	var vals=getCookie();
-	//document.getElementById("uname").value=vals;
-	alert(vals);
-    });
-	
-	
-    </script>
+    <script type="text/javascript" src="jquery-1.10.2.min.js"></script>	
+	<script type="text/javascript" src="jquery.jsontotable.min.js"></script>	
 	<style type="text/css">
 	body
 	{
@@ -102,6 +82,15 @@
 		margin-bottom:1em;
 		/*background:red;*/
 	}
+	
+	.jsontotable table, .jsontotable th, .jsontotable td {
+		border: 1px solid black;
+		margin: 10px;
+	}
+
+  code {
+    white-space: normal;
+  }
 	</style>
 	
 	<!--Menu Starts-->
@@ -131,13 +120,69 @@
 		<form name="contact" id="contact" method="post">
 			<center><img src="logo.png" alt="" style="text-align:center;"/></center>
 			<ul>
-				<li>Username</li>
-				<li><input type="text" name="uname" id="uname" class="txt"/></li>
-				<li>Password</li>
-				<li><input type="password" name="pass" id="pass" class="txt"/></li>
-				<li><input type="button" value="Login" name="submit" id="submit" class="button"/><input type="button" value="Clear" name="clear" id="clear" class="button"/></li>
-			</ul>				 			
+				<li>Category Name</li>
+				<li><input type="text" name="cname" id="cname" class="txt"/></li>				
+				<li><input type="button" value="Save" name="submit" id="submit" class="button"/><input type="button" value="Clear" name="clear" id="clear" class="button"/></li>
+			</ul>	
+			<div id="result"></div>
 		</form>
 		</div>
+		<script type="text/javascript">
+     $(document).ready(function() {  
+		
+		/*var records = [
+			{key: "Value 1", key2: "Value 1b"},
+			{key: "Value 2", key2: "Value 2b"}
+		];
+					
+			for(var i = 0; i < records.length; i++) {
+				var row = $('<tr></tr>');
+				row.append($('<td></td>').text(records[i].key));
+				row.append($('<td></td>').text(records[i].key2));
+				$('#aa').append(row);
+			}*/
+		/*var text = '{"name":"John Johnson","street":"Oslo West 16","phone":"555 1234567"}'
+
+		var obj = JSON.parse(text);
+
+		document.getElementById("result").innerHTML =
+		obj.name + "<br>" +
+		obj.street + "<br>" +
+		obj.phone;*/
+		$.ajax({
+			url:"http://192.168.0.101/party_booking_html/get_all_category.php",
+			type: "POST",
+			data:"{}",
+			dataType: "JSON",
+			success: function (jsonGet) {
+					for(var i = 0; i < jsonGet.category.length; i++) {
+					document.getElementById("result").innerHTML =
+					+ "<table><tr><td>" + jsonGet.category + "</td></tr></table>" +;
+					}
+			}
+		});		
+	 
+		 $("#submit").click(function(){
+            $.ajax({
+            url: "http://192.168.0.101/party_booking_html/add_food_category.php",
+            type: "POST",
+            data: {
+                cname: $("#cname").val()                
+            },
+            dataType: "JSON",
+            success: function (jsonStr) {
+		    <!--$("#result").text(JSON.stringify(jsonStr));-->
+				if(jsonStr.success == '1'){
+					alert(jsonStr.message);
+					window.location="food_category_master.html";
+				}else{
+					alert(jsonStr.message);
+				}
+            }
+        });
+
+    }); 
+    });	
+    </script>
     </body>
 </html>
