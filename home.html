@@ -1,28 +1,39 @@
-<!DOCTYPE html>
 <html>
     <head>
        <title>Party Booking</title>
     <script type="text/javascript" src="jquery-1.9.1.min.js"></script>	
      <script type="text/javascript">
-     $(document).ready(function() {    	 	
-		
-		function getCookie() {
-		var name = "uname = ";
-		var ca = document.cookie.split(';');
-		for(var i=0; i<ca.length; i++) {
-			var c = ca[i];
-			while (c.charAt(0)==' ') c = c.substring(1);
-			if (c.indexOf(name) != -1) return c.substring(name.length,c.length);
-		}
-		return "";
-	}
+     $(document).ready(function() {
+
+            $("#submit").click(function(){
+
+            $.ajax({
+            url: "http://192.168.0.101/party_booking_html/check_login.php",
+            type: "POST",
+            data: {
+                uname: $("#uname").val(),
+                pass: $("#pass").val()
+            },
+            dataType: "JSON",
+            success: function (jsonStr) {
+                 <!--$("#result").text(JSON.stringify(jsonStr));-->
+				if(jsonStr.status == '1'){
+				alert(jsonStr.msg);
+				window.location="home.html";
+				}else{
+				alert(jsonStr.msg);
+				}
+            }
+        });
+
+    }); 
 	
-	var vals=getCookie();
-	//document.getElementById("uname").value=vals;
-	alert(vals);
+	$("#clear").click(function() {
+		document.getElementById("uname").value="";
+		document.getElementById("pass").value="";
+	});
+
     });
-	
-	
     </script>
 	<style type="text/css">
 	body
@@ -117,14 +128,18 @@
 	</div>
 	<div class="rmm" data-menu-style = "minimal">
             <ul>
-                <li><a href='home.html'>Home</a></li>
-                <li><a href='#about-me'>Food Category Master</a></li>
-                <li><a href='#gallery'>Food Master</a></li>
-                <li><a href='#blog'>Utensils Master</a></li>
-                <li><a href='#links'>Party Booking</a></li>
-                <li><a href='#sitemap'>Report</a></li> 
-				<li><a href='#home'>User Master</a></li>
-                <li><a href='#about-me'>Logout</a></li>                
+                <li><a href='#home'>Home</a></li>
+                <li><a href='#about-me'>About me</a></li>
+                <li><a href='#gallery'>Gallery</a></li>
+                <li><a href='#blog'>Blog</a></li>
+                <li><a href='#links'>Links</a></li>
+                <li><a href='#sitemap'>Sitemap</a></li> 
+				<li><a href='#home'>Home</a></li>
+                <li><a href='#about-me'>About me</a></li>
+                <li><a href='#gallery'>Gallery</a></li>
+                <li><a href='#blog'>Blog</a></li>
+                <li><a href='#links'>Links</a></li>
+                <li><a href='#sitemap'>Sitemap</a></li>
             </ul>
         </div>
 	<div id="container">
