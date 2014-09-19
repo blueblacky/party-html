@@ -1,15 +1,14 @@
-<!DOCTYPE html>
 <html>
     <head>
        <title>Party Booking</title>
     <script type="text/javascript" src="jquery-1.9.1.min.js"></script>	
-     <script type="text/javascript">
+    <script type="text/javascript">
      $(document).ready(function() {
 
             $("#submit").click(function(){
 
             $.ajax({
-            url: "http://192.168.0.101/party_booking_html/login.php",
+            url: "http://192.168.0.102/party_booking_html/login.php",
             type: "POST",
             data: {
                 uname: $("#uname").val(),
@@ -28,11 +27,6 @@
         });
 
     }); 
-	
-	$("#clear").click(function() {
-		document.getElementById("uname").value="";
-		document.getElementById("pass").value="";
-	});
 
     });
     </script>
@@ -74,7 +68,9 @@
 		height:auto;
 		font-size:12pt;
 		color:#000;
-		padding:0.5em;
+		padding-top:0.5em;
+		padding-bottom:0.5em;
+		border:none;
 		border:0px;
 		border-bottom:1px  solid #efefef;
 	}

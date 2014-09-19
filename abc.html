@@ -1,0 +1,23 @@
+<html>
+	<head>
+	<script type="text/javascript" src="jquery-1.10.2.min.js"></script>	
+		<script>
+		 $(document).ready(function() {  
+			$('#periodSelect option').each(function() {
+    this.removeAttribute('selected');
+});
+var s=1;
+$("#periodSelect option[value='"+s+"']")[0].setAttribute('selected', true);
+ });
+		</script>
+	</head>
+	<body>
+		<select id="periodSelect" name="periodSelect">
+<option value="0" selected>Choose period</option>
+<option value="9">2011, P01</option>
+<option value="11">2012, P01</option>
+<option value="2">011, P10</option>
+<option value="1">2013, P01</option>
+</select>
+	</body>
+</html>
