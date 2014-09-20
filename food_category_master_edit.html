@@ -164,7 +164,7 @@
 			
 		 $("#submit").click(function(){
             $.ajax({
-            url: "http://192.168.0.102/party_booking_html/update_food_category.php",
+            url: "http://192.168.0.101/party_booking_html/update_food_category.php",
             type: "POST",
             data: {
                 c_id: $("#c_id").val(),
@@ -187,7 +187,7 @@
 		var retVal = confirm("Do you want to continue ?");
 		if( retVal == true ){
 				$.ajax({
-				url: "http://192.168.0.102/party_booking_html/delete_food_category.php",
+				url: "http://192.168.0.101/party_booking_html/delete_food_category.php",
 				type: "POST",
 				data: {
 					c_id: $("#c_id").val()

@@ -162,7 +162,7 @@
 		<script type="text/javascript">
      $(document).ready(function() {  
 		$.ajax({
-			url:"http://192.168.0.102/party_booking_html/get_all_accessories.php",
+			url:"http://192.168.0.101/party_booking_html/get_all_accessories.php",
 			type: "POST",
 			data:"{}",
 			dataType: "JSON",
@@ -180,7 +180,7 @@
 	 
 		 $("#submit").click(function(){
             $.ajax({
-            url: "http://192.168.0.102/party_booking_html/add_accessories_master.php",
+            url: "http://192.168.0.101/party_booking_html/add_accessories_master.php",
             type: "POST",
             data: {
                 utensils_name: $("#cname").val()                

@@ -170,7 +170,7 @@
 		<script type="text/javascript">
      $(document).ready(function() {  
 		$.ajax({
-			url:"http://192.168.0.102/party_booking_html/get_all_category.php",
+			url:"http://192.168.0.101/party_booking_html/get_all_category.php",
 			type: "POST",
 			data:"{}",
 			dataType: "JSON",
@@ -188,7 +188,7 @@
 	 
 		 $("#submit").click(function(){
             $.ajax({
-            url: "http://192.168.0.102/party_booking_html/add_food_category.php",
+            url: "http://192.168.0.101/party_booking_html/add_food_category.php",
             type: "POST",
             data: {
                 cname: $("#cname").val()                

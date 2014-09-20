@@ -224,7 +224,7 @@
 			
 		 $("#submit").click(function(){
             $.ajax({
-            url: "http://192.168.0.102/party_booking_html/update_user.php",
+            url: "http://192.168.0.101/party_booking_html/update_user.php",
             type: "POST",
             data: {
                 u_id: $("#u_id").val(),
@@ -250,7 +250,7 @@
 		var retVal = confirm("Do you want to continue ?");
 		if( retVal == true ){
 				$.ajax({
-				url: "http://192.168.0.102/party_booking_html/delete_user.php",
+				url: "http://192.168.0.101/party_booking_html/delete_user.php",
 				type: "POST",
 				data: {
 					u_id: $("#u_id").val()
