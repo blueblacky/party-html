@@ -196,7 +196,7 @@
 		
 		//Bind Dropdown
 		$.ajax({
-			url:"http://192.168.0.101/party_booking_html/get_all_category.php",
+			url:"http://192.168.1.5/party_booking_html/get_all_category.php",
 			type: "POST",
 			data:"{}",
 			dataType: "JSON",
@@ -217,7 +217,7 @@
 	 
 		 $("#submit").click(function(){
             $.ajax({
-            url: "http://192.168.0.101/party_booking_html/update_food_master.php",
+            url: "http://192.168.1.5/party_booking_html/update_food_master.php",
             type: "POST",
             data: {
 				food_id:$("#foodid").val(),
@@ -243,7 +243,7 @@
 		var retVal = confirm("Do you want to continue ?");
 		if( retVal == true ){
 				$.ajax({
-				url: "http://192.168.0.101/party_booking_html/delete_food_master.php",
+				url: "http://192.168.1.5/party_booking_html/delete_food_master.php",
 				type: "POST",
 				data: {
 					food_id: $("#foodid").val()

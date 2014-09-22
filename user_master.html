@@ -106,13 +106,20 @@
 	
 	#result table
 	{
+		width:inherit;
 		border-collapse:collapse;
 		border:1px solid #000;
 	}
 	#result table td
 	{
 		border:1px solid #000;
-		padding:0.3em;
+		padding:0.5em 0.3em;
+		font-size:13pt;
+	}
+	#result table td a
+	{
+		text-decoration:none;
+		color:#000;
 	}
 	#result table thead
 	{
@@ -120,6 +127,7 @@
 		color:#fd600b;
 		background:#27160e;
 		text-align:center;
+		font-size:14pt;
 	}
 	</style>
 	
@@ -164,7 +172,7 @@
 				<thead>
 				<tr>
 					<!-- <td>Category ID</td><td>Category Name</td><td>Option</td> -->
-					<td>Name</td><td>User Name</td><td>Edit</td>
+					<td style="width:50%;">Name</td><td style="width:50%">User Name</td>
 				</tr>
 				</thead>
 				<tbody>
@@ -176,7 +184,7 @@
 		<script type="text/javascript">
      $(document).ready(function() {  
 		$.ajax({
-			url:"http://192.168.0.101/party_booking_html/get_all_user.php",
+			url:"http://192.168.1.5/party_booking_html/get_all_user.php",
 			type: "POST",
 			data:"{}",
 			dataType: "JSON",
@@ -185,9 +193,9 @@
 				//alert(jsonGet.category[i]);
 				var row = $('<tr></tr>');
 				//row.append($('<td></td>').text(jsonGet.category_id[i]));
-				row.append($('<td></td>').text(jsonGet.first_name[i]+" "+jsonGet.last_name[i]));
-				row.append($('<td></td>').text(jsonGet.u_name[i]));
-				row.append($('<td></td>').html("<center><a href='user_master_edit.html?id="+jsonGet.u_id[i]+"&first_name="+jsonGet.first_name[i]+"&last_name="+jsonGet.last_name[i]+"&user_name="+jsonGet.u_name[i]+"&pwd="+jsonGet.pwd[i]+"' title='Edit'><img src='edit_icon.png' alt='Edit'/></a></center>"));
+				row.append($('<td></td>').html("<a href='user_master_edit.html?id="+jsonGet.u_id[i]+"&first_name="+jsonGet.first_name[i]+"&last_name="+jsonGet.last_name[i]+"&user_name="+jsonGet.u_name[i]+"&pwd="+jsonGet.pwd[i]+"' title='Edit'>"+jsonGet.first_name[i]+" "+jsonGet.last_name[i]+"</a>"));
+				row.append($('<td></td>').html("<a href='user_master_edit.html?id="+jsonGet.u_id[i]+"&first_name="+jsonGet.first_name[i]+"&last_name="+jsonGet.last_name[i]+"&user_name="+jsonGet.u_name[i]+"&pwd="+jsonGet.pwd[i]+"' title='Edit'>"+jsonGet.u_name[i]+"</a>"));
+				//row.append($('<td></td>').html("<center><a href='user_master_edit.html?id="+jsonGet.u_id[i]+"&first_name="+jsonGet.first_name[i]+"&last_name="+jsonGet.last_name[i]+"&user_name="+jsonGet.u_name[i]+"&pwd="+jsonGet.pwd[i]+"' title='Edit'><img src='edit_icon.png' alt='Edit'/></a></center>"));
 				$('#aa').append(row);
 			}
 			}
@@ -195,7 +203,7 @@
 	 
 		 $("#submit").click(function(){
             $.ajax({
-            url: "http://192.168.0.101/party_booking_html/add_user.php",
+            url: "http://192.168.1.5/party_booking_html/add_user.php",
             type: "POST",
             data: {
                 first_name: $("#fname").val(),

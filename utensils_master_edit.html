@@ -164,7 +164,7 @@
 			
 		 $("#submit").click(function(){
             $.ajax({
-            url: "http://192.168.0.101/party_booking_html/update_accessories_master.php",
+            url: "http://192.168.1.5/party_booking_html/update_accessories_master.php",
             type: "POST",
             data: {
                 utensils_id: $("#c_id").val(),
@@ -187,7 +187,7 @@
 		var retVal = confirm("Do you want to continue ?");
 		if( retVal == true ){
 				$.ajax({
-				url: "http://192.168.0.101/party_booking_html/delete_accessories_master.php",
+				url: "http://192.168.1.5/party_booking_html/delete_accessories_master.php",
 				type: "POST",
 				data: {
 					utensils_id: $("#c_id").val()

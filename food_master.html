@@ -106,13 +106,20 @@
 	
 	#result table
 	{
+		width:inherit;
 		border-collapse:collapse;
 		border:1px solid #000;
 	}
 	#result table td
 	{
 		border:1px solid #000;
-		padding:0.3em;
+		padding:0.5em 0.3em;
+		font-size:13pt;
+	}
+	#result table td a
+	{
+		text-decoration:none;
+		color:#000;
 	}
 	#result table thead
 	{
@@ -120,6 +127,7 @@
 		color:#fd600b;
 		background:#27160e;
 		text-align:center;
+		font-size:14pt;
 	}
 	.drop
 	{
@@ -172,7 +180,7 @@
 				<thead>
 				<tr>
 					<!-- <td>Category ID</td><td>Category Name</td><td>Option</td> -->
-					<td>Category</td><td>Food Name</td><td>Edit</td>
+					<td style="width:50%;">Category</td><td style="width:50%;">Food Name</td>
 				</tr>
 				</thead>
 				<tbody>
@@ -186,7 +194,7 @@
 	 
 		//Bind Grid
 		$.ajax({
-			url:"http://192.168.0.101/party_booking_html/get_all_food_master.php",
+			url:"http://192.168.1.5/party_booking_html/get_all_food_master.php",
 			type: "POST",
 			data:"{}",
 			dataType: "JSON",
@@ -195,9 +203,9 @@
 				//alert(jsonGet.category[i]);
 				var row = $('<tr></tr>');
 				//row.append($('<td></td>').text(jsonGet.category_id[i]));
-				row.append($('<td></td>').text(jsonGet.category_name[i]));
-				row.append($('<td></td>').text(jsonGet.food_name[i]));
-				row.append($('<td></td>').html("<center><a href='food_master_edit.html?id="+jsonGet.food_id[i]+"&name="+jsonGet.food_name[i]+"&cat_id="+jsonGet.category_id[i]+"&cat_name="+jsonGet.category_name[i]+"' title='Edit'><img src='edit_icon.png' alt='Edit'/></a></center>"));
+				row.append($('<td></td>').html("<a href='food_master_edit.html?id="+jsonGet.food_id[i]+"&name="+jsonGet.food_name[i]+"&cat_id="+jsonGet.category_id[i]+"&cat_name="+jsonGet.category_name[i]+"' title='Edit'>"+jsonGet.category_name[i]+"</a>"));
+				row.append($('<td></td>').html("<a href='food_master_edit.html?id="+jsonGet.food_id[i]+"&name="+jsonGet.food_name[i]+"&cat_id="+jsonGet.category_id[i]+"&cat_name="+jsonGet.category_name[i]+"' title='Edit'>"+jsonGet.food_name[i]+"</a>"));
+				//row.append($('<td></td>').html("<center><a href='food_master_edit.html?id="+jsonGet.food_id[i]+"&name="+jsonGet.food_name[i]+"&cat_id="+jsonGet.category_id[i]+"&cat_name="+jsonGet.category_name[i]+"' title='Edit'><img src='edit_icon.png' alt='Edit'/></a></center>"));
 				$('#aa').append(row);
 			}
 			}
@@ -205,7 +213,7 @@
 	 
 		//Bind Dropdown
 		$.ajax({
-			url:"http://192.168.0.101/party_booking_html/get_all_category.php",
+			url:"http://192.168.1.5/party_booking_html/get_all_category.php",
 			type: "POST",
 			data:"{}",
 			dataType: "JSON",
@@ -225,7 +233,7 @@
 	 
 		 $("#submit").click(function(){
             $.ajax({
-            url: "http://192.168.0.101/party_booking_html/add_food_master.php",
+            url: "http://192.168.1.5/party_booking_html/add_food_master.php",
             type: "POST",
             data: {
 				category_id:$("#ddlCategory").val(),
