@@ -177,6 +177,14 @@
 		text-transform:capitalize;
 		
 	}
+	.w_txt
+	{
+		background:#fff;
+		border:0;
+		border:none;
+		color:#fff;
+		display:none;
+	}
 	</style>
 	
 	<!--Menu Starts-->
@@ -188,7 +196,7 @@
     </head>
     <body>
 	<div id="title">
-		<img src="ic_launcher-48.png" alt="" id="title_image"/> <span id="title_text">Booking</span>		
+		<img src="ic_launcher-48.png" alt="" id="title_image"/> <span id="title_text">Edit Party Booking</span>		
 	</div>
 	<div class="rmm" data-menu-style = "minimal">
             <ul>
@@ -199,12 +207,14 @@
                 <li><a href='partybooking.html'>Party Booking</a></li>
                 <li><a href='partybooking_report.html'>Report</a></li> 
 				<li><a href='user_master.html'>User Master</a></li>
-                <li><a href='logout.html'>Logout</a></li>                
+                <li><a href='logout.html'>Logout</a></li>               
             </ul>
         </div>
 	<div id="container">
 		<form name="contact" id="contact" method="post">
 			<ul>
+				<li>Bill No</li>
+				<li><input type="text" id="bill_no" name="bill_no" class="txt" readonly/></li>
 				<li>Date</li>
 				<li><input type="text" id="datepicker" class="txt" style="width:80%;" name="datepicker"></li>				
 				<li>Time</li>
@@ -234,20 +244,9 @@
 				<li>Venue and Guest Details</li>
 				<li><textarea name="guest" id="guest" class="txt1"></textarea></li>
 				
-				<li><input type="button" value="Save" name="submit" id="submit" class="button"/></li>
-			</ul>	
-			<div id="result">
-			<table id="aa">
-				<thead>
-				<tr>
-					<!-- <td>Category ID</td><td>Category Name</td><td>Option</td> -->
-					<td style="width:10%;">Bill No</td><td style="width:30%;">Date</td><td style="width:30%;">Name</td><td style="width:30%;">Venue</td>
-				</tr>
-				</thead>
-				<tbody>
-				</tbody>
-			</table>
-			</div>
+				<li><input type="button" value="Save" name="submit" id="submit" class="button"/><input type="button" value="Delete" name="delete" id="delete" class="button" /></li>
+				 <input type="text" id="f_list" name="f_list" class="w_txt"/><input type="text" id="u_list" name="u_list" class="w_txt"/> 
+			</ul>				
 		</form>
 		</div>
 		<script type="text/javascript">
@@ -257,6 +256,11 @@
 		//alert(ses_name);
 		if(ses_name != "" && ses_name != null)
 		{
+			if(ses_name !="admin")
+				{
+					alert('You are not permitted to access this form');
+					window.location="partybooking.html";
+				}
 			//document.getElementById("uspan").innerHTML=ses_name;
 		}
 		else
@@ -274,7 +278,7 @@
 			success: function (jsonGet) {			
 			var items1="";
 			for(var i = 0; i < jsonGet.accessories_id.length; i++) {			
-				items1+="<input type='checkbox' name='utensils_check[]' value='"+jsonGet.accessories_id[i]+"' class='ut_class' />"+jsonGet.accessories_name[i]+"<br/>";											
+				items1+="<input type='checkbox' name='utensils_check[]' id='uten_"+jsonGet.accessories_id[i]+"' value='"+jsonGet.accessories_id[i]+"' class='ut_class' />"+jsonGet.accessories_name[i]+"<br/>";											
 			}
 			$("#divUtensils").html(items1);
 			}
@@ -289,33 +293,79 @@
 			success: function (jsonGet) {
 			var items2 = "";
 			for(var i = 0; i < jsonGet.food_id.length; i++) {
-				items2+="<input type='checkbox' name='food_check[]' value='"+jsonGet.food_id[i]+"' class='fd_class'/>"+jsonGet.food_name[i]+"<br/>";
+				items2+="<input type='checkbox' name='food_check[]' id='food_"+jsonGet.food_id[i]+"' value='"+jsonGet.food_id[i]+"' class='fd_class'/>"+jsonGet.food_name[i]+"<br/>";
 				}
 				$("#divFood").html(items2);
 			}
 		});		
-	 
-		//Bind Grid
-		$.ajax({
-			url:"http://192.168.1.5/party_booking_html/get_live_party_booking.php",
-			type: "POST",
-			data:"{}",
-			dataType: "JSON",
-			success: function (jsonGet) {
-			for(var i = 0; i < jsonGet.party_id.length; i++) { 
-				//alert(jsonGet.category[i]);
-				var row = $('<tr></tr>');
-				//row.append($('<td></td>').text(jsonGet.category_id[i])); 
-				row.append($('<td></td>').html("<a href='partybooking_edit.html?id="+jsonGet.party_id[i]+"' title='Edit'>"+jsonGet.party_id[i]+"</a>"));
-				row.append($('<td></td>').html("<a href='partybooking_edit.html?id="+jsonGet.party_id[i]+"' title='Edit'>"+jsonGet.party_date[i]+"</a>"));
-				row.append($('<td></td>').html("<a href='partybooking_edit.html?id="+jsonGet.party_id[i]+"' title='Edit'>"+jsonGet.customer_name[i]+"</a>"));
-				row.append($('<td></td>').html("<a href='partybooking_edit.html?id="+jsonGet.party_id[i]+"' title='Edit'>"+jsonGet.venue[i]+"</a>"));
-				//row.append($('<td></td>').html("<center><a href='food_master_edit.html?id="+jsonGet.food_id[i]+"&name="+jsonGet.food_name[i]+"&cat_id="+jsonGet.category_id[i]+"&cat_name="+jsonGet.category_name[i]+"' title='Edit'><img src='edit_icon.png' alt='Edit'/></a></center>"));
-				$('#aa').append(row);
+			 
+		//Bind Details
+		
+		function getUrlVars()
+		{
+			var vars = [], hash;
+			var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+			for(var i = 0; i < hashes.length; i++)
+			{
+				hash = hashes[i].split('=');
+				vars.push(hash[0]);
+				vars[hash[0]] = hash[1];
 			}
-			}
-		});		
-	 			 
+			return vars;
+		}
+		
+		var pid = getUrlVars()["id"];
+		document.getElementById("bill_no").value=pid;
+		if(pid != null)
+		{		
+			document.getElementById("venue").value=decodeURIComponent(pid);
+		
+			$.ajax({
+				url:"http://192.168.1.5/party_booking_html/get_details_party_booking.php",
+				//url:"http://192.168.1.5/party_booking_html/get.php",
+				type: "POST",
+				data:{party_id:pid},
+				dataType: "JSON",
+				success: function (jsonGet) {					
+					document.getElementById("datepicker").value=jsonGet.party_date;
+					document.getElementById("timepicker_test1").value=jsonGet.party_time;
+					document.getElementById("pax").value=jsonGet.pax;
+					document.getElementById("venue").value=jsonGet.venue;
+					document.getElementById("start").value=jsonGet.start;
+					document.getElementById("cusname").value=jsonGet.customer_name;
+					document.getElementById("cusaddress").value=jsonGet.address;
+					document.getElementById("email").value=jsonGet.email;
+					document.getElementById("contact_no").value=jsonGet.contact_no;
+					document.getElementById("special").value=jsonGet.special_notes;
+					document.getElementById("guest").value=jsonGet.venue_and_guest_details;
+					document.getElementById("van").value=jsonGet.van_and_team;
+					document.getElementById("u_list").value = jsonGet.uten;
+					document.getElementById("f_list").value = jsonGet.food;
+					var array=$('#u_list').val().split(",");
+					for(i=0; i<array.length; i++)
+					{
+						//alert(array[i]);
+						var ars="#uten_"+array[i];
+						//alert(ars);
+						$(ars).prop('checked', true);						
+					}
+					
+					var f_array=$('#f_list').val().split(",");
+					for(i=0; i<f_array.length; i++)
+					{
+						var arsf="#food_"+f_array[i];
+						$(arsf).prop('checked', true);
+					}
+				}				
+			});		
+		}
+		else
+		{
+			alert('No Data');
+		}
+				
+	 		
+		//Update Booking		
 		 $("#submit").click(function(){
 						
 			//Utensils Values
@@ -330,7 +380,7 @@
 			/* we join the array separated by the comma */
 			var selected;
 			selected = chkArray.join(',') + ",";
-			//alert(selected);
+			alert(selected);
 			
 			//Food Values
 			/* declare an checkbox array */
@@ -344,13 +394,14 @@
 			/* we join the array separated by the comma */
 			var selected1;
 			selected1= chkArray1.join(',') + ",";
-			//alert(selected1);
+			alert(selected1);
 			
 			
             $.ajax({
-            url: "http://192.168.1.5/party_booking_html/add_party_booking.php",
+            url: "http://192.168.1.5/party_booking_html/update_party_booking.php",
             type: "POST",
             data: {
+				party_id:$("#bill_no").val(),
 				customer_name:$("#cusname").val(),
                 address: $("#cusaddress").val(),
 				email: $("#email").val(),
@@ -363,9 +414,9 @@
 				special_notes: $("#special").val(),
 				venue_and_guest_details: $("#guest").val(),
 				van_and_team: $("#van").val(),				
-				booked_by: localStorage.getItem("username"),
-				utensils_list: selected,
-				food_list: selected1
+				//booked_by: $("#").val(),
+				party_utensils_list: selected,
+				party_food_list: selected1
             },
             dataType: "JSON",
             success: function (jsonStr) {
@@ -377,7 +428,35 @@
 					alert(jsonStr.message);
 				}
             }
-        });
+        });		
+    }); 
+	
+	//Delete Booking
+		$("#delete").click(function(){
+		var retVal = confirm("Do you want to continue ?");
+		if( retVal == true ){
+				$.ajax({
+				url: "http://192.168.1.5/party_booking_html/delete_party_booking.php",
+				type: "POST",
+				data: {
+					party_id: $("#bill_no").val()
+				},
+				dataType: "JSON",
+				success: function (jsonStr) {
+				<!--$("#result").text(JSON.stringify(jsonStr));-->
+					if(jsonStr.success == '1'){
+						alert(jsonStr.message);
+						window.location="partybooking.html";
+					}else{
+						alert(jsonStr.message);
+					}
+				}
+			});
+		}
+		else
+		{	
+			alert('No changes are made.');
+		}
     }); 
 	
 	 <!----   date picker  start----->

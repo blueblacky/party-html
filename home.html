@@ -3,25 +3,19 @@
        <title>Party Booking</title>
     <script type="text/javascript" src="jquery-1.9.1.min.js"></script>	
      <script type="text/javascript">
-     $(document).ready(function() {    	 	
-		
-		function getCookie() {
-		var name = "uname = ";
-		var ca = document.cookie.split(';');
-		for(var i=0; i<ca.length; i++) {
-			var c = ca[i];
-			while (c.charAt(0)==' ') c = c.substring(1);
-			if (c.indexOf(name) != -1) return c.substring(name.length,c.length);
+     $(document).ready(function() {    	 
+		var ses_name=localStorage.getItem("username");
+		//alert(ses_name);
+		if(ses_name != "" && ses_name != null)
+		{
+			document.getElementById("uspan").innerHTML=ses_name;
 		}
-		return "";
-	}
-	
-	var vals=getCookie();
-	//document.getElementById("uname").value=vals;
-	alert(vals);
-    });
-	
-	
+		else
+		{
+			alert('Anonymous access is restricted');
+			window.location="index.html";
+		}
+	});			
     </script>
 	<style type="text/css">
 	body
@@ -103,6 +97,24 @@
 		margin-bottom:1em;
 		/*background:red;*/
 	}
+	h2
+	{
+		color:#fd600b;
+		text-align:center;
+		margin:0;
+		padding:0;
+		margin-top:0.5em;
+		font-size:2.5em;
+		font-weight:bold;
+	}
+	h3
+	{
+		color:#fd600b;
+		text-align:center;
+		margin:0;
+		padding:0;
+		font-size:1.5em;
+	}
 	</style>
 	
 	<!--Menu Starts-->
@@ -114,7 +126,7 @@
     </head>
     <body>
 	<div id="title">
-		<img src="ic_launcher-48.png" alt="" id="title_image"/> <span id="title_text">Party Booking</span>		
+		<img src="ic_launcher-48.png" alt="" id="title_image"/> <span id="title_text">Home</span>		
 	</div>
 	<div class="rmm" data-menu-style = "minimal">
             <ul>
@@ -123,21 +135,16 @@
                 <li><a href='food_master.html'>Food Master</a></li>
                 <li><a href='utensils_master.html'>Utensils Master</a></li>
                 <li><a href='partybooking.html'>Party Booking</a></li>
-                <li><a href='#sitemap'>Report</a></li> 
+                <li><a href='partybooking_report.html'>Report</a></li> 
 				<li><a href='user_master.html'>User Master</a></li>
-                <li><a href='mail.html'>Logout</a></li>   
+                <li><a href='logout.html'>Logout</a></li> 
             </ul>
         </div>
 	<div id="container">
 		<form name="contact" id="contact" method="post">
 			<center><img src="logo.png" alt="" style="text-align:center;"/></center>
-			<ul>
-				<li>Username</li>
-				<li><input type="text" name="uname" id="uname" class="txt"/></li>
-				<li>Password</li>
-				<li><input type="password" name="pass" id="pass" class="txt"/></li>
-				<li><input type="button" value="Login" name="submit" id="submit" class="button"/><input type="button" value="Clear" name="clear" id="clear" class="button"/></li>
-			</ul>				 			
+			<h2>Welcome <span id="uspan"></span></h2><br/>	
+			<h3>Have a nice day.</h3>			
 		</form>
 		</div>
     </body>

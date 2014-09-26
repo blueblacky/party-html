@@ -17,8 +17,9 @@
             dataType: "JSON",
             success: function (jsonStr) {
 		    <!--$("#result").text(JSON.stringify(jsonStr));-->
-				if(jsonStr.success == '1'){
-					alert(jsonStr.name);
+				if(jsonStr.success == '1'){					
+					localStorage.setItem("username", jsonStr.name);
+					//alert(jsonStr.name);
 					window.location="home.html";
 				}else{
 					alert(jsonStr.message);

@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html>
+    <head>
+       <title>Party Booking</title>
+    <script type="text/javascript" src="jquery-1.10.2.min.js"></script>	
+	<!--Date Picker-->
+	<link href="jquery-ui-1.10.4.custom.css" rel="stylesheet">	
+	<script src="jquery-ui-1.10.4.custom.js"></script>
+	<!--Date Picker-->
+	
+	<!--Time Picker-->	
+	<link rel="stylesheet" href="jquery-ui-timepicker-addon.css" type="text/css" />    
+	<script type="text/javascript" src="jquery-ui-timepicker-addon.js"></script>        
+	<!--Time Picker-->
+	
+	<style type="text/css">
+	body
+	{
+		background:#fff;
+		color:#000;
+		paddin:0;
+		margin:0;
+		margin:0 auto;
+	}
+	#title
+	{
+		height:2.5em;
+		width:100%;
+		background:#424242;
+		color:#fff;
+		font-size:1.4em;		
+			
+	}
+	#title_image
+	{
+		float:left;
+		vertical-align: middle;
+	}
+	#title_text
+	{
+		float:left;
+		padding-left:0.4em;
+		padding-top:0.5em;
+		vertical-align:middle;
+	}
+	.txt
+	{
+		width:98%;
+		margin-left:1%;
+		margin-right:1%;
+		height:auto;
+		font-size:12pt;
+		color:#000;
+		padding-top:0.5em;
+		padding-bottom:0.5em;
+		border:none;
+		border:0px;
+		border-bottom:1px  solid #efefef;
+	}
+	.txt:focus
+	{
+		outline:none;
+		border-bottom:1px  solid #0099cc;
+	}
+	.txt1
+	{
+		width:98%;
+		min-height:5em;
+		overflow:auto;
+		margin-left:1%;
+		margin-right:1%;
+		height:auto;
+		font-size:12pt;
+		color:#000;
+		padding-top:0.5em;
+		padding-bottom:0.5em;
+		border:none;
+		border:0px;
+		border-bottom:1px  solid #efefef;
+	}
+	.txt1:focus
+	{
+		outline:none;
+		border-bottom:1px  solid #0099cc;
+	}
+	.button
+	{
+		float:left;
+		width:auto;
+		font-size:12pt;
+		background:#0263ad;
+		padding:0.8em 0.8em;
+		border:0;
+		color:#fff;
+		margin-right:1em;
+	}
+	ul
+	{
+		list-style-type:none;
+		margin-left:-30px;		
+	}
+	li
+	{
+		padding:0.5em 0;
+	}
+	#container
+	{
+		width:98%;
+		height:auto;
+		margin:0 auto;
+		margin-left:1%;
+		margin-right:1%;
+		margin-top:1em;
+		margin-bottom:1em;
+		/*background:red;*/
+	}
+	
+	.jsontotable table, .jsontotable th, .jsontotable td {
+		border: 1px solid black;
+		margin: 10px;
+	}
+
+  code {
+    white-space: normal;
+  }
+  #result
+	{
+		width:96%;
+		float:left;
+		margin-top:1em;
+		margin-bottom:1em;
+		margin-right:1%;
+		margin-left:1%;
+		display:block;
+	}
+	
+	#result table
+	{
+		width:inherit;
+		border-collapse:collapse;
+		border:1px solid #000;
+	}
+	#result table td
+	{
+		border:1px solid #000;
+		padding:0.5em 0.3em;
+		font-size:13pt;
+	}
+	#result table td a
+	{
+		text-decoration:none;
+		color:#000;
+	}
+	#result table thead
+	{
+		font-weight:bold;
+		color:#fd600b;
+		background:#27160e;
+		text-align:center;
+		font-size:14pt;
+	}
+	.drop
+	{
+		width:98%;
+		margin-left:1%;
+		margin-right:1%;
+		height:auto;
+		font-size:12pt;
+		color:#000;
+		padding-top:0.5em;
+		padding-bottom:0.5em
+		border:1px  solid #efefef;
+	}
+	.check
+	{		
+		line-height:1.8em;
+		text-transform:capitalize;
+		
+	}
+	.w_txt
+	{
+		background:#fff;
+		border:0;
+		border:none;
+		color:#fff;
+		display:none;
+	}
+	
+	#report_table
+	{
+		width:100%;
+		/*border:1px solid #000;*/
+		border-collapse:collapse;
+	}
+	#report_table td
+	{
+		/*order:1px solid #000;*/
+		padding:0.5em;		
+	}
+	
+	.spinner {	  
+	width: 90px;
+	height: 80px;	  
+	top: 50%;
+	left: 45%;		
+	position:fixed;
+	}
+
+	.cube1, .cube2 {
+	  background-color: #025889;
+	  width: 30px;
+	  height: 30px;
+	  position: absolute;
+	  top: 0;
+	  left: 0;
+	  
+	  -webkit-animation: cubemove 1.8s infinite ease-in-out;
+	  animation: cubemove 1.8s infinite ease-in-out;
+	}
+
+	.cube2 {
+		background-color:#fd600b;
+	  -webkit-animation-delay: -0.9s;
+	  animation-delay: -0.9s;
+	}
+
+	@-webkit-keyframes cubemove {
+	  25% { -webkit-transform: translateX(42px) rotate(-90deg) scale(0.5) }
+	  50% { -webkit-transform: translateX(42px) translateY(42px) rotate(-180deg) }
+	  75% { -webkit-transform: translateX(0px) translateY(42px) rotate(-270deg) scale(0.5) }
+	  100% { -webkit-transform: rotate(-360deg) }
+	}
+
+	@keyframes cubemove {
+	  25% { 
+		transform: translateX(42px) rotate(-90deg) scale(0.5);
+		-webkit-transform: translateX(42px) rotate(-90deg) scale(0.5);
+	  } 50% { 
+		transform: translateX(42px) translateY(42px) rotate(-179deg);
+		-webkit-transform: translateX(42px) translateY(42px) rotate(-179deg);
+	  } 50.1% { 
+		transform: translateX(42px) translateY(42px) rotate(-180deg);
+		-webkit-transform: translateX(42px) translateY(42px) rotate(-180deg);
+	  } 75% { 
+		transform: translateX(0px) translateY(42px) rotate(-270deg) scale(0.5);
+		-webkit-transform: translateX(0px) translateY(42px) rotate(-270deg) scale(0.5);
+	  } 100% { 
+		transform: rotate(-360deg);
+		-webkit-transform: rotate(-360deg);
+	  }
+	}
+	</style>
+	
+	<!--Menu Starts-->
+	<link rel="stylesheet" href="responsivemobilemenu.css" type="text/css"/>
+	<script type="text/javascript" src="responsivemobilemenu.js"></script>
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
+	<!--Menu Ends-->
+	
+    </head>
+    <body>
+	<div id="title">
+		<img src="ic_launcher-48.png" alt="" id="title_image"/> <span id="title_text">Booking</span>		
+	</div>
+	<div class="rmm" data-menu-style = "minimal">
+            <ul>
+                <li><a href='home.html'>Home</a></li>
+                <li><a href='food_category_master.html'>Food Category Master</a></li>
+                <li><a href='food_master.html'>Food Master</a></li>
+                <li><a href='utensils_master.html'>Utensils Master</a></li>
+                <li><a href='partybooking.html'>Party Booking</a></li>
+                <li><a href='partybooking_report.html'>Report</a></li> 
+				<li><a href='user_master.html'>User Master</a></li>
+                <li><a href='logout.html'>Logout</a></li>                
+            </ul>
+        </div>
+	<div id="container">
+		<form name="contact" id="contact" method="post">
+		<div class="spinner">
+		  <div class="cube1"></div>
+		  <div class="cube2"></div>		  
+		</div>
+			<table id="report_table">
+				<tr>
+					<td style="width:28%;">Bill No</td>
+					<td style="width:68%;"><span id="bill_no" name="bill_no"></span></td>
+				</tr>
+				<tr>
+					<td style="width:28%;">Date</td>
+					<td style="width:68%;"><span id="datepicker" name="datepicker"></span></td>
+				</tr>
+				<tr>
+					<td style="width:28%;">Time</td>
+					<td style="width:68%;"><span name="timepicker_test1" id="timepicker_test1"></span></td>
+				</tr>
+				<tr>
+					<td style="width:28%;">Venue</td>
+					<td style="width:68%;"><span name="venue" id="venue"></span></td>
+				</tr>
+				<tr>
+					<td style="width:28%;">Pax</td>
+					<td style="width:68%;"><span name="pax" id="pax"></span></td>
+				</tr>
+				<tr>
+					<td style="width:28%;">Start</td>
+					<td style="width:68%;"><span name="start" id="start"></span></td>
+				</tr>
+				<tr>
+					<td style="width:28%;">Customer Name</td>
+					<td style="width:68%;"><span name="cusname" id="cusname"></span></td>
+				</tr>
+				<tr>
+					<td style="width:28%;">Customer Address</td>
+					<td style="width:68%;"><span name="cusaddress" id="cusaddress"></span></td>
+				</tr>
+				<tr>
+					<td style="width:28%;">Email</td>
+					<td style="width:68%;"><span name="email" id="email"></span></td>
+				</tr>
+				<tr>
+					<td style="width:28%;">Contact</td>
+					<td style="width:68%;"><span name="contact_no" id="contact_no"></span></td>
+				</tr>
+				<tr>
+					<td style="width:28%;">Utensils</td>
+					<td style="width:68%;"><div id="divUtensils" class="check"></div></td>
+				</tr>
+				<tr>
+					<td style="width:28%;">Food</td>
+					<td style="width:68%;"><div id="divFood" class="check"></div></td>
+				</tr>
+				<tr>
+					<td style="width:28%;">Special Notes</td>
+					<td style="width:68%;"><span name="special" id="special"></span></td>
+				</tr>
+				<tr>
+					<td style="width:28%;">Van and Team</td>
+					<td style="width:68%;"><span name="van" id="van"></span></td>
+				</tr>
+				<tr>
+					<td style="width:28%;">Venue and Guest Details</td>
+					<td style="width:68%;"><span name="guest" id="guest"></span></td>
+				</tr>
+				<tr>
+					<td style="width:28%;"></td>
+					<td style="width:68%;"><input type="button" value="Save" name="submit" id="submit" class="button"/></td>
+				</tr>
+			</table>	
+				
+		</form>
+		</div>
+		<script type="text/javascript">
+     $(document).ready(function() {  
+		
+		$(".spinner").hide();
+	 
+		var ses_name=localStorage.getItem("username");
+		//alert(ses_name);
+		if(ses_name != "" && ses_name != null)
+		{
+			if(ses_name !="admin")
+				{
+					alert('You are not permitted to access this form');
+					window.location="partybooking.html";
+				}
+			//document.getElementById("uspan").innerHTML=ses_name;
+		}
+		else
+		{
+			alert('Anonymous access is restricted');
+			window.location="index.html";
+		}
+		
+		//Bind Details		
+		function getUrlVars()
+		{
+			var vars = [], hash;
+			var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+			for(var i = 0; i < hashes.length; i++)
+			{
+				hash = hashes[i].split('=');
+				vars.push(hash[0]);
+				vars[hash[0]] = hash[1];
+			}
+			return vars;
+		}
+		
+		var pid = getUrlVars()["id"];
+		
+		if(pid != null)
+		{						
+			$.ajax({
+				url:"http://192.168.1.5/party_booking_html/report.php",
+				//url:"http://192.168.1.5/party_booking_html/get.php",
+				type: "POST",
+				data:{party_id:pid},
+				dataType: "JSON",
+				success: function (jsonGet) {					
+					document.getElementById("bill_no").innerHTML =jsonGet.party_id;
+					document.getElementById("datepicker").innerHTML=jsonGet.party_date;
+					document.getElementById("timepicker_test1").innerHTML=jsonGet.party_time;
+					document.getElementById("pax").innerHTML=jsonGet.pax;
+					document.getElementById("venue").innerHTML=jsonGet.venue;
+					document.getElementById("start").innerHTML=jsonGet.start;
+					document.getElementById("cusname").innerHTML=jsonGet.customer_name;
+					document.getElementById("cusaddress").innerHTML=jsonGet.address;
+					document.getElementById("email").innerHTML=jsonGet.email;
+					document.getElementById("contact_no").innerHTML=jsonGet.contact_no;
+					document.getElementById("special").innerHTML=jsonGet.special_notes;
+					document.getElementById("guest").innerHTML=jsonGet.venue_and_guest_details;
+					document.getElementById("van").innerHTML=jsonGet.van_and_team;
+					document.getElementById("divUtensils").innerHTML = jsonGet.uten;
+					document.getElementById("divFood").innerHTML = jsonGet.food;
+					/*var array=$('#u_list').val().split(",");
+					for(i=0; i<array.length; i++)
+					{
+						//alert(array[i]);
+						var ars="#uten_"+array[i];
+						//alert(ars);
+						$(ars).prop('checked', true);						
+					}
+					
+					var f_array=$('#f_list').val().split(",");
+					for(i=0; i<f_array.length; i++)
+					{
+						var arsf="#food_"+f_array[i];
+						$(arsf).prop('checked', true);
+					}*/
+				}				
+			});		
+		}
+		else
+		{
+			alert('No Data');
+		}
+				
+	 		
+		//Update Booking		
+		 $("#submit").click(function(){		
+			
+			
+			$('#report_table').css({"opacity": "0.1"});
+			$('.spinner').show();			
+			
+			/*var b=$('#bill_no').text();
+			var c=$("#email").text();
+			alert(b+" "+c);*/
+            $.ajax({
+            url: "http://192.168.1.5/party_booking_html/pdf/mail.php",
+            type: "POST",
+            data: {
+				party_id:$("#bill_no").text(),				
+				email: $("#email").text()
+            },
+            dataType: "JSON",
+            success: function (jsonStr) {
+		    <!--$("#result").text(JSON.stringify(jsonStr));-->
+				$('#report_table').css({"opacity": "1"});
+				$('.spinner').hide();
+				if(jsonStr.success == '1'){
+					alert(jsonStr.message);
+					window.location="partybooking.html";
+				}else{
+					alert(jsonStr.message);
+				}
+            }
+        });		
+    }); 
+	
+	//Delete Booking
+		$("#delete").click(function(){
+		var retVal = confirm("Do you want to continue ?");
+		if( retVal == true ){
+				$.ajax({
+				url: "http://192.168.1.5/party_booking_html/delete_party_booking.php",
+				type: "POST",
+				data: {
+					party_id: $("#bill_no").val()
+				},
+				dataType: "JSON",
+				success: function (jsonStr) {
+				<!--$("#result").text(JSON.stringify(jsonStr));-->
+					if(jsonStr.success == '1'){
+						alert(jsonStr.message);
+						window.location="partybooking.html";
+					}else{
+						alert(jsonStr.message);
+					}
+				}
+			});
+		}
+		else
+		{	
+			alert('No changes are made.');
+		}
+    }); 
+		 
+    });	
+    </script>
+	
+	
+    </body>
+</html>

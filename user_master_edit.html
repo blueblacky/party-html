@@ -141,9 +141,9 @@
                 <li><a href='food_master.html'>Food Master</a></li>
                 <li><a href='utensils_master.html'>Utensils Master</a></li>
                 <li><a href='partybooking.html'>Party Booking</a></li>
-                <li><a href='#sitemap'>Report</a></li> 
+                <li><a href='partybooking_report.html'>Report</a></li> 
 				<li><a href='user_master.html'>User Master</a></li>
-                <li><a href='#about-me'>Logout</a></li>                  
+                <li><a href='logout.html'>Logout</a></li>                  
             </ul>
         </div>
 	<div id="container">
@@ -165,6 +165,23 @@
 		
 		<script type="text/javascript">
      $(document).ready(function() {  
+	 
+		var ses_name=localStorage.getItem("username");
+		//alert(ses_name);
+		if(ses_name != "" && ses_name != null)
+		{
+			if(ses_name !="admin")
+				{
+					alert('You are not permitted to access this form');
+					window.location="home.html";
+				}
+			//document.getElementById("uspan").innerHTML=ses_name;
+		}
+		else
+		{
+			alert('Anonymous access is restricted');
+			window.location="index.html";
+		}
 	 
 		function getUrlVars()
 		{
